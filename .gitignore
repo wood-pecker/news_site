@@ -1,0 +1,7 @@
+.vscode/
+venv/
+readme.md
+.idea
+__pycache__
+media/
+mysite/private_settings.py

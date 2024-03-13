@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+
+{% block title %} 
+    {{ title }} :: {{ current_category }} 
+{% endblock title %} 
+
+{% block sidebar %}
+    {% include "inc/_sidebar.html" %}
+{% endblock sidebar %} 
+
+{% block content %}
+    {% include "inc/_content.html" %}
+{% endblock content %}

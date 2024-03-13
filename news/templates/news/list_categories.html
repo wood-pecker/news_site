@@ -1,0 +1,9 @@
+<div class="list-group">
+    {% for category in categories %}
+        {% if current_category and current_category == category %}
+        <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action active" aria-current="true">{{ category.title }} <span class="badge bg-light text-primary rounded-pill float-right">{{category.amount_news}}</span></a>
+        {% else %}
+        <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action">{{ category.title }} <span class="badge bg-primary text-light rounded-pill float-right">{{category.amount_news}}</span></a>
+        {% endif %}
+    {% endfor %}
+</div>
