@@ -127,7 +127,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "mysite/static"),
@@ -151,6 +151,8 @@ EMAIL_USE_SSL = ""
 EMAIL_USE_TLS = ""
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+INTERNAL_IPS = ['127.0.0.1']
 
 CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.math_challenge"
 CAPTCHA_NOISE_FUNCTIONS = None

@@ -5,3 +5,4 @@ readme.md
 __pycache__
 media/
 mysite/private_settings.py
+static/

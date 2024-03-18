@@ -20,6 +20,7 @@ def index(request):
 
 
 def test(request):
+    # send_mail() 
     return HttpResponse('Test page')
 
 
@@ -32,7 +33,7 @@ def contact(request):
                 form.cleaned_data['content'],
                 settings.EMAIL_HOST_USER,
                 ["wspanialyogorek@mail.ru"],
-                fail_silently=False,
+                fail_silently=True,
             )
             if mail:
                 messages.success(request, 'Письмо отправлено!')
@@ -121,7 +122,7 @@ class NewsByCategory(ListView):
     def get_queryset(self):
         return News.objects.filter(
             is_published=True, category_id=self.kwargs['category_id'],
-        )
+        ).select_related('category')
         
         
 class ViewNews(DetailView):

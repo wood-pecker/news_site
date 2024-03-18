@@ -3,12 +3,11 @@
     {% if current_category %}
         <div class="card-header">Категория: {{ item.category }}</div>
     {% else %}
-        <div class="card-header">Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a></div>
+        <div class="card-header">Категория: <a href="{% url "category" item.category.pk %}">{{ item.category }}</a></div>
     {% endif %}
     <div class="card-body">
         <div class="media">
             {% if item.photo %}
-
             <img src="{{ item.photo.url }}" alt="" width="350" class="mr-3" />
             {% else %}
             <img src="https://img.freepik.com/premium-photo/a-blurry-image-of-a-sunset-with-a-blurry-background_407836-555.jpg" alt="" width="350" class="mr-3" />
@@ -16,7 +15,7 @@
             <div class="media-body">
                 <h5 class="card-title">{{ item.title }}</h5>
                 <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:35 }}</p>
-                <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+                <a href="{% url "news" item.pk %}" class="btn btn-primary">Читать дальше</a>
             </div>
         </div>
     </div>
