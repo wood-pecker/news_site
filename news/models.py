@@ -1,4 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class UserSettings(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    phone = models.CharField(max_length=20, blank=True)
+    telegram = models.CharField(blank=True)
+    # allow_phone_notification = models.BooleanField()
+    allow_email_notifications = models.BooleanField(blank=True, default=True)
+    allow_telegram_notifications = models.BooleanField(blank=True, default=False)
+    is_phone_verified = models.BooleanField(null=True, blank=True, default=None)
+    is_telegram_verified = models.BooleanField(null=True, blank=True, default=None)
+    phone_verification_code = models.CharField(max_length=4, blank=True)
+    telegram_verification_code = models.CharField(max_length=4, blank=True)
+    
+    class Meta:
+        verbose_name = 'Настройки пользователя'
+        verbose_name_plural = 'Настройки пользователей'
+        
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
 
         
 class Category(models.Model):

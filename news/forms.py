@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
 
-from news.models import Category, News
+from news.models import *
 
 
 class NewsForm(forms.ModelForm):
@@ -26,6 +26,20 @@ class NewsForm(forms.ModelForm):
             raise ValidationError("Название не должно начинаться с цифры!")
         return title
 
+
+class UserSettingsForm(forms.ModelForm):
+    class Meta:
+        model = UserSettings
+        fields = [
+            'phone', 'telegram', 'allow_email_notifications', 
+            'allow_telegram_notifications'
+        ]
+        widgets = {
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'telegram': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        
+    
 
 class UserLoginForm(AuthenticationForm):
     username = forms.EmailField(

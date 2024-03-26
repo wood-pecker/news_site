@@ -1,12 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.core.mail import send_mail
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from mysite import settings
-from .models import Category, News
+from .models import Category, News, UserSettings
 from .forms import *
 
 
@@ -52,6 +52,9 @@ def register(request):
         if form.is_valid():
             form.instance.email = form.instance.username
             user = form.save()
+            user_settings = UserSettings()
+            user_settings.user = user
+            user_settings.save()
             login(request, user)
             messages.info(request, 'Вы успешно зарегистрировались')
             return redirect('home')
@@ -88,6 +91,23 @@ def get_category(request, category_id):
         'current_category': current_category,
     }
     return render(request, 'news/category.html', context)
+
+
+def user_settings(request):
+    obj = get_object_or_404(UserSettings, user_id=request.user.id)
+    if request.method == 'POST':
+        form = UserSettingsForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Настройки профиля успешно сохранены!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка!')
+    else:
+        form = UserSettingsForm(instance=obj)
+    return render(
+        request, 'news/user_settings.html', {'form': form}
+    )
 
 
 class HomeNews(ListView):
