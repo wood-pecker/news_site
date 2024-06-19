@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/', user_logout, name='logout'),
     path('profile/', user_settings, name='user_settings'),
     path('contact/', contact, name='contact'),
+    path('subs/', subscriptions, name='subscriptions'),
     path('category/<int:category_id>/', NewsByCategory.as_view(), name='category'),
     path('news/<int:pk>/', ViewNews.as_view(), name='news'),
     path('news/add-news/', CreateNews.as_view(), name='add_news'),

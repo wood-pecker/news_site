@@ -1,0 +1,25 @@
+{% extends "base.html" %} 
+
+{% block title %}
+    Подписки | {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+        {% with categories=form.fields.categories.queryset %}
+        {% for item in categories %}
+            <p> 
+                <label for="id_{{ item }}">{{ item }}</label>
+                <input type="checkbox" id="id_{{ item }}">
+            </p>
+        {% endfor %}
+        {% endwith %}
+
+        <button type="submit" class="btn btn-primary btn-block">
+            Сохранить
+        </button>
+    </form>
+{% endblock content %}

@@ -93,6 +93,15 @@ DATABASES = {
 }
 
 
+# Celery and redis
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6370'
+BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_DEFAULT_QUEUE = 'news'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

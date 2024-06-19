@@ -108,6 +108,27 @@ def user_settings(request):
     return render(
         request, 'news/user_settings.html', {'form': form}
     )
+    
+    
+def subscriptions(request):
+    # subs = UserSettings.objects.get()
+    viewer = UserSettings.objects.get(user_id=request.user.id)
+    subs = viewer.categories.all()
+    if not subs:
+        subs = None
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST, instance=subs)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Список подписок обновлён!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка!')
+    else:
+        form = SubscriptionForm(instance=subs)
+    return render(
+        request, 'news/subscriptions.html', {'form': form}
+    )
 
 
 class HomeNews(ListView):

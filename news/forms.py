@@ -39,7 +39,13 @@ class UserSettingsForm(forms.ModelForm):
             'telegram': forms.TextInput(attrs={'class': 'form-control'}),
         }
         
-    
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = UserSettings
+        fields = ['categories']
+        # widgets = {
+        #     'categories': forms.CheckboxInput(attrs={'class': 'form-control'})
+        # } 
 
 class UserLoginForm(AuthenticationForm):
     username = forms.EmailField(
