@@ -4,22 +4,23 @@
     Подписки | {{ block.super }}
 {% endblock title %}
 
+
+{% comment %} {% extends "base_generic.html" %} {% endcomment %}
+
 {% block content %}
-
-    <form method="post">
-        {% csrf_token %}
-        {% comment %} {{ form.as_p }} {% endcomment %}
-        {% with categories=form.fields.categories.queryset %}
-        {% for item in categories %}
-            <p> 
-                <label for="id_{{ item }}">{{ item }}</label>
-                <input type="checkbox" id="id_{{ item }}">
-            </p>
-        {% endfor %}
-        {% endwith %}
-
-        <button type="submit" class="btn btn-primary btn-block">
-            Сохранить
-        </button>
-    </form>
-{% endblock content %}
+  {% comment %} <h1>Настройки подписок</h1> {% endcomment %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block">
+        Сохранить
+    </button>
+  </form>
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

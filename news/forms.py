@@ -38,14 +38,19 @@ class UserSettingsForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'telegram': forms.TextInput(attrs={'class': 'form-control'}),
         }
-        
+
+
 class SubscriptionForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
     class Meta:
         model = UserSettings
-        fields = ['categories']
-        # widgets = {
-        #     'categories': forms.CheckboxInput(attrs={'class': 'form-control'})
-        # } 
+        fields = ['categories']        
+
 
 class UserLoginForm(AuthenticationForm):
     username = forms.EmailField(
